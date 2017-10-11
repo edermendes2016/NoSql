@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using ProjectNoSql.Context;
+using ProjectNoSql.Repositoriy;
+using ProjectNoSql.Controllers;
 
 namespace ProjectNoSql
 {
@@ -35,6 +38,10 @@ namespace ProjectNoSql
         {
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
+
+            services.Configure<Settings>(o => { o.iConfigurationRoot = Configuration; });
+            services.AddTransient<IStudentRepository, StudentRepository>();
+
 
             services.AddMvc();
         }
